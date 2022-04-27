@@ -1,0 +1,10 @@
+{% for url in urls %}
+	{% if current_url == url.url_name%}
+		<title>{{url.title}}</title>
+		<li class="selected"><h2>{{url.title}}</h2></li>
+	{% else %}
+		<li class="selected">
+		<h3><a href="{% url url.url_name %}">{{url.title}}</a></h3>
+		</li>
+	{% endif %}
+{% endfor %}

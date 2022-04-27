@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="note-entry">
+    <h2>{{ note.title }}</h2>
+    <p>{{ note.body| linebreaks }}</p>
+    {% if note.photo %}
+        <h5>Изображение {{ note.photo }}</p></h5>
+	    <p><img class="img-article-left thumb" src="{{note.photo.url}}"></p>
+    {% endif %}
+    <h5><p>Дата создания: {{ note.time_create|date:'d-m-Y H:i' }}</p></h5>
+    <h5><p>Последнее изменение: {{ note.time_update|date:'d-m-Y H:i:s' }}</p></h5>
+    {% if note.is_published == True %}
+      <h5><p>Запись видят все</p></h5>
+    {% else %}
+      <h5><p>Запись видна только вам</p></h5>
+    {% endif %}
+
+  </div>
+<p><a href="{% url 'note_edit' note.pk %}">Редактировать запись</a></p>
+<p><a href="{% url 'note_delete' note.pk %}">Удалить запись</a></p>
+{% endblock content %}

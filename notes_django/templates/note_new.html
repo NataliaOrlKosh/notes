@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Новая заметка</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+    <input type="submit" value="Добавить">
+    </form>
+{% else %}
+    <h3><p>Пожалуйста, авторизуйтесь или зарегистрируйтесь, чтобы оставлять заметки.</p></h3>
+{% endif %}
+{% endblock content %}

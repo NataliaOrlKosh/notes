@@ -1,0 +1,45 @@
+{% load static %}
+{% load notes_tags %}
+<html>
+  <head>
+	<link type="text/css" href="{% static 'css/base.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'images/logo.jpg' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+  <table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+		<div class="header">
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="{% url 'common' %}"><div class="logo"></div></a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+    <div>
+      {% if user.is_authenticated %}
+        <h3>Здравствуйте, {{ user.username }}.</h3>
+        <p><a href="{% url 'logout' %}">Выйти из системы</a></p>
+      {% else %}
+        <h3>Вы не авторизованы.</h3>
+        <a href="{% url 'login' %}">Авторизация</a> |
+        <a href="{% url 'signup' %}">Регистрация</a>
+      {% endif %}
+        		</div>
+<table class="table-content" border=0 cellpadding="0" cellspacing="0">
+<tr>
+	<td valign="top" class="left-chapters">
+	<ul id="leftchapters">
+        {% show_notes request%}
+	</ul>
+</td>
+<td valign="top" class="content">
+	<div class="content-text">
+{% block content %}
+{% endblock %}
+	</div>
+</table>
+</td></tr></table>
+</td></tr>
+  </body>
+</html>

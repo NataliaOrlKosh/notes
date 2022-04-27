@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load notes_tags %}
+{% block content %}
+{% if user.is_authenticated %}
+<ul class="list-articles">
+	{% for note in note_list %}
+		{% if note.author.pk == request.user.pk %}
+		{% if note.photo %}
+			<p><img class="img-article-left thumb" src="{{note.photo.url}}"></p>
+		{% endif %}
+        <h2>{{note.title}}</h2>
+		<li><div class="article-panel">
+		<h5><a class="first">Дата создания: {{ note.time_create|date:'d-m-Y H:i' }}</a></h5>
+		<h5><a class="last">Последнее изменение: {{ note.time_update|date:'d-m-Y H:i:s' }}</a></h5>
+		</div>
+		{% autoescape on %}
+		<p>{{ note.body| linebreaks|truncatewords:50 }}</p>
+		{% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="{{note.get_absolute_url}}">Подробнее</a></p>
+			</li>
+	{% endif %}
+	{% endfor %}
+</ul>
+      {% else %}
+        <h3><p>Пожалуйста, авторизуйтесь или зарегистрируйтесь, чтобы оставлять заметки.</p></h3>
+      {% endif %}
+{% endblock %}
